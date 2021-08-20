@@ -60,8 +60,8 @@ export default {
     return {
       Admin: {
         username: null,
-        password: null
-      }
+        password: null,
+      },
     };
   },
   methods: {
@@ -70,24 +70,21 @@ export default {
       data.append("username", this.Admin.username);
       data.append("password", this.Admin.password);
       axios
-        .post(
-          "http://localhost/php-vue/src/Api/db.php?action=login",
-          data
-        )
-        .then(res => {
+        .post("http://localhost/php-vue/src/Api/db.php?action=login", data)
+        .then((res) => {
           if (res.data.error) {
             console.log("Error", res.data);
             alert(res.data.message);
           } else {
             console.log("Success", res.data.message);
             alert(res.data.message);
-            this.$router.push("/dashboard");
+            this.$router.push("/theses");
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log("Error", err);
         });
-    }
-  }
+    },
+  },
 };
 </script>

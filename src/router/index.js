@@ -1,35 +1,45 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/Login.vue";
-import Dashboard from "../components/dashboard.vue";
+import ThesesView from "../views/ThesesView.vue";
+//import Dashboard from "../components/dashboard.vue";
 import Home from "../components/Home.vue";
 import Theses from "../components/Theses.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
-  {
+   {
     path: "/",
-    name: "Login",
-    component: Login,
+    name: "Home",
+    component: Home,
+  }, 
+  {
+    path: "/thesesview",
+    name: "ThesesView",
+    component: ThesesView,
+  }, 
+  {
+    path: "/theses",
+    name: "Theses",
+    component: Theses,
   },
   {
-    path: "/dashboard",
-    name: "dashboard",
-    component: Dashboard,
+    path: "/admin",
+    name: "Admin",
+    component: Login,
     children: [
       {
-        path: "/",
-        component: Home
+        path: "/home",
+        component: Home,
       },
       {
         path: "/theses",
         name: "Theses",
-        component: Theses
-      }
-    ]
+        component: Theses,
+      },
+    ],
   },
- 
 ];
 
 const router = new VueRouter({

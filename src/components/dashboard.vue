@@ -1,6 +1,6 @@
 <template>
   <div>
-   <nav class="navbar navbar-expand-lg navbar-light bg-info">
+    <nav class="navbar navbar-expand-lg navbar-light bg-info">
       <a class="navbar-brand" href="#">Dashboard</a>
       <button
         class="navbar-toggler"
@@ -32,8 +32,7 @@
       <div class="row">
         <div class="col-md-12 col-sm-12">
           <div class="mt-5">
-      <router-view></router-view>
-
+            <router-view></router-view>
           </div>
         </div>
       </div>

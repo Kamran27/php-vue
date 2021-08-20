@@ -164,109 +164,138 @@ export default {
   titel: "Theses",
   data() {
     return {
-      modal:null,
-      editModal:false,
-      addModal:true,
-      Proglang:["Java","C#","JavaScript","PHP","Python","Vue","React","Angular"],
-      newThesis:{
-        titel:null,
-        publisher:null,
-        year:"",
-        proglang:null,
+      modal: null,
+      editModal: false,
+      addModal: true,
+      Proglang: [
+        "Java",
+        "C#",
+        "JavaScript",
+        "PHP",
+        "Python",
+        "Vue",
+        "React",
+        "Angular",
+      ],
+      newThesis: {
+        titel: null,
+        publisher: null,
+        year: "",
+        proglang: null,
       },
-      currentThesis:{},
-      Theses:[],
+      currentThesis: {},
+      Theses: [],
     };
   },
-  created(){
-  this.getTheses();
+  created() {
+    this.getTheses();
   },
-  methods:{
-    addNew(){
-      window.jQuery("#AddThesis").modal('show'); 
+  methods: {
+    addNew() {
+      window.jQuery("#AddThesis").modal("show");
     },
-    edThesis(){
-      window.jQuery("#EditThesis").modal('show'); 
+    edThesis() {
+      window.jQuery("#EditThesis").modal("show");
     },
-    delThesis(){
-      window.jQuery("#DeleteThesis").modal('show'); 
+    delThesis() {
+      window.jQuery("#DeleteThesis").modal("show");
     },
-     selectThesis(thesis){
+    selectThesis(thesis) {
       this.currentThesis = thesis;
-    }, 
-    getTheses(){
-      axios.get('http://localhost/php-vue/src/Api/db.php?action=getThesisInfo').then((res)=>{
-        console.log(res.data.thesis_Data);
-        this.Theses=res.data.thesis_Data;
-      }).catch((err)=>{
-        console.log(err);
-      })
     },
-    addTheses(){
-      let data= new FormData();
-      data.append("titel" ,this.newThesis.titel);
-      data.append("publisher" ,this.newThesis.publisher);
-      data.append("year" ,this.newThesis.year);
-      data.append("proglang" ,this.newThesis.proglang);
-      axios.post('http://localhost/php-vue/src/Api/db.php?action=addTheses',data).then((res)=>{
-        if(res.data.error){
-          alert("Error");
-        }else{
-          window.jQuery("#AddThesis").modal('hide');
-          this.getTheses();
-          alert(res.data.message);
-        }
-      }).catch((err)=>{
-        console.log(err);
-      })
+    getTheses() {
+      axios
+        .get("http://localhost/php-vue/src/Api/db.php?action=getThesisInfo")
+        .then((res) => {
+          console.log(res.data.thesis_Data);
+          this.Theses = res.data.thesis_Data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    editTheses(){
-      let data= new FormData();
-      data.append("id" ,this.currentThesis.id);
-      data.append("titel" ,this.currentThesis.titel);
-      data.append("publisher" ,this.currentThesis.publisher);
-      data.append("year" ,this.currentThesis.year);
-      data.append("proglang" ,this.currentThesis.proglang);
-      axios.post('http://localhost/php-vue/src/Api/db.php?action=updateThesis',data).then((res)=>{
-        this.newThesis = {titel:null,
-                            publisher:null,
-                            year:"",
-                            proglang:null,};
-        if(res.data.error){
-          alert("Error");
-        }else{
-         window.jQuery("#EditThesis").modal('hide');
-         this.getTheses();
-        }
-      }).catch((err)=>{
-        console.log(err);
-      })
+    addTheses() {
+      let data = new FormData();
+      data.append("titel", this.newThesis.titel);
+      data.append("publisher", this.newThesis.publisher);
+      data.append("year", this.newThesis.year);
+      data.append("proglang", this.newThesis.proglang);
+      axios
+        .post("http://localhost/php-vue/src/Api/db.php?action=addTheses", data)
+        .then((res) => {
+          if (res.data.error) {
+            alert("Error");
+          } else {
+            window.jQuery("#AddThesis").modal("hide");
+            this.getTheses();
+            alert(res.data.message);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    deleteThesis(){
-      let data= new FormData();
-      data.append("id" ,this.currentThesis.id);
-      axios.post('http://localhost/php-vue/src/Api/db.php?action=deleteThesis',data).then((res)=>{
-          this.newThesis = {titel:null,
-                            publisher:null,
-                            year:"",
-                            proglang:null,};
-         if(res.data.error){
-          alert("Error");
-        }else{
-         window.jQuery("#DeleteThesis").modal('hide');
-         this.getTheses();
-        }
-      }).catch((err)=>{
-        console.log(err);
-      })
+    editTheses() {
+      let data = new FormData();
+      data.append("id", this.currentThesis.id);
+      data.append("titel", this.currentThesis.titel);
+      data.append("publisher", this.currentThesis.publisher);
+      data.append("year", this.currentThesis.year);
+      data.append("proglang", this.currentThesis.proglang);
+      axios
+        .post(
+          "http://localhost/php-vue/src/Api/db.php?action=updateThesis",
+          data
+        )
+        .then((res) => {
+          this.newThesis = {
+            titel: null,
+            publisher: null,
+            year: "",
+            proglang: null,
+          };
+          if (res.data.error) {
+            alert("Error");
+          } else {
+            window.jQuery("#EditThesis").modal("hide");
+            this.getTheses();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    closeWindow(){
-        window.jQuery("#AddThesis").modal('hide');
-        window.jQuery("#EditThesis").modal('hide');
-        window.jQuery("#DeleteThesis").modal('hide');
-    }
+    deleteThesis() {
+      let data = new FormData();
+      data.append("id", this.currentThesis.id);
+      axios
+        .post(
+          "http://localhost/php-vue/src/Api/db.php?action=deleteThesis",
+          data
+        )
+        .then((res) => {
+          this.newThesis = {
+            titel: null,
+            publisher: null,
+            year: "",
+            proglang: null,
+          };
+          if (res.data.error) {
+            alert("Error");
+          } else {
+            window.jQuery("#DeleteThesis").modal("hide");
+            this.getTheses();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    closeWindow() {
+      window.jQuery("#AddThesis").modal("hide");
+      window.jQuery("#EditThesis").modal("hide");
+      window.jQuery("#DeleteThesis").modal("hide");
+    },
   },
-  
- 
 };
 </script>
